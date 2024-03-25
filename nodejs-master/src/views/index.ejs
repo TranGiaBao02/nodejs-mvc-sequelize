@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <h1>Student Information</h1>
+  <form id="searchForm">
+    <label for="mssv">MSSV:</label>
+    <input type="text" id="mssv" name="mssv" required>
+    <label for="mamh">MAMH:</label>
+    <input type="text" id="mamh" name="mamh" required>
+    <button type="button" onclick="search()">Search</button>
+  </form>
+  <div id="result"></div>
+
+  <!-- Form for adding, updating, deleting student information -->
+  <h2>Add, Update, Delete Student Information</h2>
+  <form id="studentForm">
+    <label for="mssvAdd">MSSV:</label>
+    <input type="text" id="mssvAdd" name="mssvAdd" required>
+    <label for="mamhAdd">MAMH:</label>
+    <input type="text" id="mamhAdd" name="mamhAdd" required>
+    <label for="diemAdd">Điểm:</label>
+    <input type="number" id="diemAdd" name="diemAdd" required>
+    <button type="button" onclick="addStudent()">Add</button>
+    <button type="button" onclick="updateStudent()">Update</button>
+    <button type="button" onclick="deleteStudent()">Delete</button>
+  </form>
+
+  <script>
+    function search() {
+      const mssv = document.getElementById('mssv').value;
+      const mamh = document.getElementById('mamh').value;
+
+      fetch(`/api/student?mssv=${mssv}&mamh=${mamh}`)
+        .then(response => response.json())
+        .then(data => {
+          const resultDiv = document.getElementById('result');
+          if (data.error) {
+            resultDiv.innerHTML = `<p>${data.error}</p>`;
+          } else {
+            resultDiv.innerHTML = `<p>MSSV: ${mssv}</p><p>Mã môn học: ${mamh}</p><p>Điểm: ${data.diem}</p>`;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    function addStudent() {
+      const mssv = document.getElementById('mssvAdd').value;
+      const mamh = document.getElementById('mamhAdd').value;
+      const diem = document.getElementById('diemAdd').value;
+
+      // Implement add student logic here using fetch API
+    }
+
+    function updateStudent() {
+      const mssv = document.getElementById('mssvAdd').value;
+      const mamh = document.getElementById('mamhAdd').value;
+      const diem = document.getElementById('diemAdd').value;
+
+      // Implement update student logic here using fetch API
+    }
+
+    function deleteStudent() {
+      const mssv = document.getElementById('mssvAdd').value;
+      const mamh = document.getElementById('mamhAdd').value;
+
+    }
+  </script>
+</body>
+</html>
