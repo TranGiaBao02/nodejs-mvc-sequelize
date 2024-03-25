@@ -13,9 +13,9 @@
   </form>
   <div id="result"></div>
 
-  <!-- Form for adding, updating, deleting student information -->
-  <h2>Add, Update, Delete Student Information</h2>
-  <form id="studentForm">
+  <!-- Form for adding student information -->
+  <h2>Add Student Information</h2>
+  <form id="addForm">
     <label for="mssvAdd">MSSV:</label>
     <input type="text" id="mssvAdd" name="mssvAdd" required>
     <label for="mamhAdd">MAMH:</label>
@@ -23,7 +23,27 @@
     <label for="diemAdd">Điểm:</label>
     <input type="number" id="diemAdd" name="diemAdd" required>
     <button type="button" onclick="addStudent()">Add</button>
+  </form>
+
+  <!-- Form for updating student information -->
+  <h2>Update Student Information</h2>
+  <form id="updateForm">
+    <label for="mssvUpdate">MSSV:</label>
+    <input type="text" id="mssvUpdate" name="mssvUpdate" required>
+    <label for="mamhUpdate">MAMH:</label>
+    <input type="text" id="mamhUpdate" name="mamhUpdate" required>
+    <label for="diemUpdate">New Điểm:</label>
+    <input type="number" id="diemUpdate" name="diemUpdate" required>
     <button type="button" onclick="updateStudent()">Update</button>
+  </form>
+
+  <!-- Form for deleting student information -->
+  <h2>Delete Student Information</h2>
+  <form id="deleteForm">
+    <label for="mssvDelete">MSSV:</label>
+    <input type="text" id="mssvDelete" name="mssvDelete" required>
+    <label for="mamhDelete">MAMH:</label>
+    <input type="text" id="mamhDelete" name="mamhDelete" required>
     <button type="button" onclick="deleteStudent()">Delete</button>
   </form>
 
@@ -69,9 +89,9 @@
     }
 
     function updateStudent() {
-      const mssv = document.getElementById('mssvAdd').value;
-      const mamh = document.getElementById('mamhAdd').value;
-      const diem = document.getElementById('diemAdd').value;
+      const mssv = document.getElementById('mssvUpdate').value;
+      const mamh = document.getElementById('mamhUpdate').value;
+      const diem = document.getElementById('diemUpdate').value;
 
       fetch('/api/student/update', {
         method: 'PUT',
@@ -90,11 +110,15 @@
     }
 
     function deleteStudent() {
-      const mssv = document.getElementById('mssvAdd').value;
-      const mamh = document.getElementById('mamhAdd').value;
+      const mssv = document.getElementById('mssvDelete').value;
+      const mamh = document.getElementById('mamhDelete').value;
 
-      fetch(`/api/student/delete?mssv=${mssv}&mamh=${mamh}`, {
-        method: 'DELETE'
+      fetch(`/api/student/delete`, {
+        method: 'DELETE',
+        headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({ mssv, mamh })
       })
       .then(response => response.json())
       .then(data => {
