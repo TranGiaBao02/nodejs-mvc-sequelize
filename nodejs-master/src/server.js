@@ -6,6 +6,7 @@ const studentRoute = require('./routes/route');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(studentRoute);
 
+app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   res.render('index');
 });
