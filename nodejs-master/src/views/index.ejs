@@ -52,7 +52,20 @@
       const mamh = document.getElementById('mamhAdd').value;
       const diem = document.getElementById('diemAdd').value;
 
-      // Implement add student logic here using fetch API
+      fetch('/api/student/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ mssv, mamh, diem })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
 
     function updateStudent() {
@@ -60,13 +73,36 @@
       const mamh = document.getElementById('mamhAdd').value;
       const diem = document.getElementById('diemAdd').value;
 
-      // Implement update student logic here using fetch API
+      fetch('/api/student/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ mssv, mamh, diem })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
 
     function deleteStudent() {
       const mssv = document.getElementById('mssvAdd').value;
       const mamh = document.getElementById('mamhAdd').value;
 
+      fetch(`/api/student/delete?mssv=${mssv}&mamh=${mamh}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
   </script>
 </body>
