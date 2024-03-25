@@ -52,8 +52,8 @@ const updateStudentInfo = async (req, res) => {
 // Delete student
 const deleteStudent = async (req, res) => {
   try {
-    const { mssv, mamh } = req.body;
-    await Student.destroy({ where: { mssv:mssv, mamh:mamh } });
+    const { mssv, mamh } = req.query;
+    await Student.destroy({ where: { mssv, mamh } });
     res.status(200).json({ message: 'Student deleted successfully' });
   } catch (error) {
     console.error('Error in deleteStudent:', error);

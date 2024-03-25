@@ -113,20 +113,16 @@
       const mssv = document.getElementById('mssvDelete').value;
       const mamh = document.getElementById('mamhDelete').value;
 
-      fetch(`/api/student/delete`, {
-        method: 'DELETE',
-        headers: {
-      'Content-Type': 'application/json'
-    },
-      body: JSON.stringify({ mssv, mamh })
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert(data.message);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      fetch(`/api/student/delete?mssv=${mssv}&mamh=${mamh}`, {
+      method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
   </script>
 </body>
